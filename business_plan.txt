@@ -1,0 +1,107 @@
+Multi-Vendor E-Commerce Platform
+
+1. Project Overview
+This project aims to design and develop a multi-vendor e-commerce platform that enables multiple sellers to offer products through a centralized digital marketplace. The system allows vendors to manage their products and orders while providing customers with a seamless online shopping experience.
+The platform is implemented as a modern web application using scalable technologies and integrates third-party services such as payment systems.
+
+2. Problem Statement
+In many markets, especially among small and medium-sized businesses:
+* Sellers rely heavily on social media platforms (e.g., Facebook, Instagram)
+* There is no structured product management system
+* Orders are handled manually via messaging
+* Lack of payment integration leads to inefficiency
+* Scaling operations becomes difficult
+As a result, both vendors and customers experience inefficiencies, lack of transparency, and limited growth potential.
+
+3. Proposed Solution
+The proposed system is a centralized online marketplace that provides:
+For Vendors:
+* Easy registration and onboarding
+* Product management (create, update, delete)
+* Order tracking and management
+* Access to a vendor dashboard
+For Customers:
+* Product browsing and searching
+* Shopping cart functionality
+* Secure checkout and payment (QPay)
+* Order history and tracking
+For Administrators:
+* Vendor approval system
+* User management
+* Order monitoring and system oversight
+
+4. Target Users
+Customers
+* Individuals purchasing products online
+* Typically aged 18-40
+* Prefer convenient and fast digital shopping
+Vendors
+* Small and medium-sized businesses
+* Independent sellers lacking technical infrastructure
+Administrator
+* Platform owner responsible for managing the system
+
+5. Value Proposition
+The system provides:
+* A centralized marketplace for multiple vendors
+* Simplified onboarding for sellers
+* Structured and efficient order management
+* Improved product discovery for customers
+* Scalable architecture for future growth
+Compared to informal social media selling, the platform offers a more reliable and professional environment.
+
+6. Key Features (MVP Scope)
+Customer Features:
+* User registration and login
+* Product browsing and filtering
+* Shopping cart
+* Checkout with QPay integration
+* Order tracking
+Vendor Features:
+* Vendor registration
+* Product management (CRUD)
+* Order management
+Admin Features:
+* Vendor approval
+* User management
+* Order monitoring
+
+7. Business Model
+The platform can generate revenue through:
+* Commission-based model
+A percentage fee charged per completed transaction
+* Subscription model (future)
+Vendors pay a monthly fee for platform usage or premium features
+
+8. Market & Competitor Analysis
+Competitors:
+   * International: Amazon, Alibaba
+   * Local: Existing Mongolian e-commerce platforms
+Differentiation:
+   * Focus on simplified vendor onboarding
+   * Tailored for local payment system (QPay)
+   * Designed as a lightweight and scalable solution
+
+9. Feasibility Analysis
+Technical Feasibility:
+   * Uses modern technologies (Next.js, Supabase, Tailwind)
+   * Cloud-based infrastructure ensures scalability
+Economic Feasibility:
+   * Low initial cost (open-source tools + cloud services)
+   * Scalable business model
+Operational Feasibility:
+   * Easy to use for both vendors and customers
+   * Minimal training required
+
+10. Limitations
+   * Prototype-level implementation
+   * Limited real-world load testing
+   * Payment integration may be limited to sandbox/testing environment
+   * No mobile application (web-only system)
+
+11. Future Improvements
+   * Recommendation system (AI-based product suggestions)
+   * Vendor analytics dashboard
+   * Mobile application (React Native or Flutter)
+   * Advanced search and personalization
+   * Multi-language support

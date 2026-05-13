@@ -1,0 +1,87 @@
+The system follows a modern full-stack architecture using Next.js as both frontend and backend framework. Supabase provides a cloud-hosted PostgreSQL database and authentication services. The system is structured using API routes, enabling separation of concerns. Additional integration includes a third-party payment gateway (QPay) for transaction handling.
+
+PHASE 1 - Planning & Requirements (Chapter 1)
+Goal: Define what you are building and why
+Tasks:
+* Finalize technology stack
+* Conduct competitor analysis
+* Define functional requirements (features)
+* Define non-functional requirements (performance, security, scalability)
+* Write user stories
+Example user story:
+"As a customer, I want to search for products so that I can find items quickly."
+
+PHASE 2 - System Design (Chapter 2)
+Goal: Design how the system will work
+Tasks:
+* Database schema design (ERD)
+* API structure design
+* Folder structure definition
+* System architecture diagram
+This chapter is VERY important for grading
+
+PHASE 3 - Authentication & User Management (Chapter 3)
+Goal: Control who can access what
+Tasks:
+* Customer registration & login (Supabase Auth)
+* Vendor registration flow
+* Admin approval system (vendor verification)
+* Role-based access control:
+   * Customer
+   * Vendor
+   * Admin
+Academic term: Role-Based Access Control (RBAC)
+
+PHASE 4 - Core Features (Chapter 3)
+Goal: Build the main system functionality
+Tasks:
+Product System
+* Product CRUD (vendor)
+* Product browsing (customer)
+* Search & filtering
+Cart & Orders
+* Cart system
+* Order placement
+* Order tracking
+* Vendor order management
+Payment
+* QPay integration (sandbox/test)
+Academic term: Integration of third-party payment gateway
+
+PHASE 5 - Admin Panel (Chapter 3)
+Goal: System control and monitoring
+Tasks:
+* User management
+* Vendor approval
+* Order monitoring
+* Basic analytics (optional)
+
+PHASE 6 - Database Optimization & Security (Ch.4 & Ch.5)
+Goal: Make system efficient and secure
+Tasks:
+Optimization
+* Indexing
+* Pagination
+* Query optimization
+Security
+* Supabase RLS policies
+* Input validation
+* Rate limiting
+* Secure API design
+Deployment
+* Deploy to Vercel
+
+PHASE 7 - Testing & Evaluation (Chapter 5)
+Goal: Prove your system works
+Tasks:
+* Manual testing
+* Screenshots
+* Performance evaluation
+* System limitations analysis
+
+PHASE 8 - Thesis Writing (Throughout)
+Goal: Document everything
+Tasks:
+* Write alongside development
+* Add diagrams and screenshots
+* Explain decisions clearly

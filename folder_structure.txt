@@ -1,0 +1,135 @@
+Multi-Vendor E-Commerce Platform - Folder Structure
+====================================================
+
+thesis/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx                  Root layout
+│   │   ├── globals.css
+│   │   │
+│   │   ├── (auth)/                     Route group - no shared layout
+│   │   │   ├── login/
+│   │   │   │   └── page.tsx
+│   │   │   └── register/
+│   │   │       └── page.tsx
+│   │   │
+│   │   ├── (shop)/                     Customer-facing pages
+│   │   │   ├── page.tsx                Home / product listing
+│   │   │   ├── products/
+│   │   │   │   └── [id]/
+│   │   │   │       └── page.tsx        Product detail
+│   │   │   ├── cart/
+│   │   │   │   └── page.tsx
+│   │   │   ├── checkout/
+│   │   │   │   └── page.tsx
+│   │   │   └── orders/
+│   │   │       ├── page.tsx            Order history
+│   │   │       └── [id]/
+│   │   │           └── page.tsx        Order detail
+│   │   │
+│   │   ├── dashboard/
+│   │   │   ├── vendor/                 Vendor dashboard (protected)
+│   │   │   │   ├── page.tsx            Overview
+│   │   │   │   ├── products/
+│   │   │   │   │   ├── page.tsx        Product list
+│   │   │   │   │   ├── new/
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   └── [id]/
+│   │   │   │   │       └── page.tsx    Edit product
+│   │   │   │   └── orders/
+│   │   │   │       ├── page.tsx
+│   │   │   │       └── [id]/
+│   │   │   │           └── page.tsx
+│   │   │   │
+│   │   │   └── admin/                  Admin panel (protected)
+│   │   │       ├── page.tsx            Overview
+│   │   │       ├── vendors/
+│   │   │       │   └── page.tsx        Vendor approval
+│   │   │       ├── users/
+│   │   │       │   └── page.tsx
+│   │   │       └── orders/
+│   │   │           └── page.tsx
+│   │   │
+│   │   └── api/                        API routes
+│   │       ├── auth/
+│   │       │   └── [...route]/         Supabase Auth handlers
+│   │       ├── products/
+│   │       │   ├── route.ts            GET list, POST create
+│   │       │   └── [id]/
+│   │       │       └── route.ts        GET, PUT, DELETE
+│   │       ├── categories/
+│   │       │   └── route.ts
+│   │       ├── cart/
+│   │       │   ├── route.ts
+│   │       │   └── [id]/
+│   │       │       └── route.ts
+│   │       ├── orders/
+│   │       │   ├── route.ts
+│   │       │   └── [id]/
+│   │       │       ├── route.ts
+│   │       │       └── status/
+│   │       │           └── route.ts
+│   │       ├── vendors/
+│   │       │   ├── route.ts
+│   │       │   ├── me/
+│   │       │   │   └── route.ts
+│   │       │   └── [id]/
+│   │       │       └── route.ts
+│   │       ├── admin/
+│   │       │   ├── vendors/
+│   │       │   │   ├── route.ts
+│   │       │   │   └── [id]/
+│   │       │   │       └── route.ts
+│   │       │   ├── users/
+│   │       │   │   └── route.ts
+│   │       │   └── orders/
+│   │       │       └── route.ts
+│   │       └── payment/
+│   │           └── qpay/
+│   │               ├── invoice/
+│   │               │   └── route.ts
+│   │               ├── check/
+│   │               │   └── [id]/
+│   │               │       └── route.ts
+│   │               └── callback/
+│   │                   └── route.ts
+│   │
+│   ├── components/
+│   │   ├── ui/                         Shadcn base components
+│   │   ├── auth/
+│   │   │   ├── LoginForm.tsx
+│   │   │   └── RegisterForm.tsx
+│   │   ├── products/
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── ProductGrid.tsx
+│   │   │   ├── ProductFilter.tsx
+│   │   │   └── ProductForm.tsx         (vendor create/edit)
+│   │   ├── cart/
+│   │   │   ├── CartItem.tsx
+│   │   │   └── CartSummary.tsx
+│   │   ├── orders/
+│   │   │   ├── OrderCard.tsx
+│   │   │   └── OrderStatusBadge.tsx
+│   │   └── dashboard/
+│   │       ├── Sidebar.tsx
+│   │       └── StatsCard.tsx
+│   │
+│   ├── lib/
+│   │   ├── supabase/
+│   │   │   ├── client.ts               Browser client
+│   │   │   └── server.ts               Server client
+│   │   └── utils.ts
+│   │
+│   ├── types/
+│   │   └── index.ts                    All shared TypeScript types
+│   │
+│   └── middleware.ts                   Auth route protection
+│
+├── public/
+├── schema.sql                          Database schema (run in Supabase)
+├── api_design.txt                      API endpoint reference
+├── folder_structure.txt                This file
+├── business_plan.txt
+├── dev_plan.txt
+├── .env.local
+└── package.json

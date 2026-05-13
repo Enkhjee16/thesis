@@ -1,0 +1,96 @@
+Multi-Vendor E-Commerce Platform - API Design
+==============================================
+
+Base: /api/*
+Auth: Supabase session cookie (handled by middleware)
+
+------------------------------------------------------
+AUTH (handled by Supabase Auth UI / SDK directly)
+------------------------------------------------------
+POST   /api/auth/register        Register new user
+POST   /api/auth/login           Login
+POST   /api/auth/logout          Logout
+GET    /api/auth/me              Get current user + profile
+
+------------------------------------------------------
+PRODUCTS
+------------------------------------------------------
+GET    /api/products             List active products (public)
+                                 Query: ?category=&search=&page=&limit=
+GET    /api/products/[id]        Get single product (public)
+POST   /api/products             Create product (vendor only)
+PUT    /api/products/[id]        Update product (owner vendor only)
+DELETE /api/products/[id]        Delete product (owner vendor only)
+
+------------------------------------------------------
+CATEGORIES
+------------------------------------------------------
+GET    /api/categories           List all categories (public)
+
+------------------------------------------------------
+CART
+------------------------------------------------------
+GET    /api/cart                 Get current user's cart
+POST   /api/cart                 Add item to cart
+PUT    /api/cart/[id]            Update quantity
+DELETE /api/cart/[id]            Remove item from cart
+DELETE /api/cart                 Clear entire cart
+
+------------------------------------------------------
+ORDERS
+------------------------------------------------------
+GET    /api/orders               List orders (customer: own; vendor: shop orders)
+POST   /api/orders               Place order (from cart)
+GET    /api/orders/[id]          Get order detail
+PATCH  /api/orders/[id]/status   Update order status (vendor/admin)
+
+------------------------------------------------------
+VENDORS
+------------------------------------------------------
+GET    /api/vendors              List approved vendors (public)
+GET    /api/vendors/[id]         Get vendor detail + products (public)
+POST   /api/vendors              Register as vendor (authenticated customer)
+GET    /api/vendors/me           Get current vendor profile (vendor only)
+PUT    /api/vendors/me           Update own vendor profile
+
+------------------------------------------------------
+ADMIN
+------------------------------------------------------
+GET    /api/admin/vendors        List all vendors with status filter
+PATCH  /api/admin/vendors/[id]   Approve or reject vendor
+GET    /api/admin/users          List all users
+GET    /api/admin/orders         List all orders
+
+------------------------------------------------------
+PAYMENT (QPay)
+------------------------------------------------------
+POST   /api/payment/qpay/invoice    Create QPay invoice for an order
+GET    /api/payment/qpay/check/[id] Check payment status
+POST   /api/payment/qpay/callback   QPay webhook callback (payment confirmation)
+
+------------------------------------------------------
+RESPONSE FORMAT (consistent across all endpoints)
+------------------------------------------------------
+Success:
+{
+  "data": <result>,
+  "error": null
+}
+
+Error:
+{
+  "data": null,
+  "error": {
+    "message": "Human readable error",
+    "code": "ERROR_CODE"
+  }
+}
+
+HTTP status codes:
+  200 OK
+  201 Created
+  400 Bad Request (validation error)
+  401 Unauthorized
+  403 Forbidden (wrong role)
+  404 Not Found
+  500 Internal Server Error
