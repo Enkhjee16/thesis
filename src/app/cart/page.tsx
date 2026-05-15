@@ -5,7 +5,10 @@ import { createClient } from '@/lib/supabase/server'
 import { removeFromCart, updateCartItem } from '@/app/actions/cart'
 import { placeOrder } from '@/app/actions/orders'
 
-export default async function CartPage() {
+type Props = { searchParams: Promise<{ error?: string }> }
+
+export default async function CartPage({ searchParams }: Props) {
+  const { error: errorParam } = await searchParams
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -32,6 +35,12 @@ export default async function CartPage() {
 
       <div className="mx-auto max-w-4xl px-4 py-8">
         <h1 className="mb-6 text-2xl font-bold">Shopping Cart</h1>
+
+        {errorParam === 'insufficient_stock' && (
+          <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-400">
+            One or more items in your cart is out of stock. Please update your cart and try again.
+          </div>
+        )}
 
         {!cartItems || cartItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-zinc-300 py-24 text-center dark:border-zinc-700">

@@ -17,6 +17,12 @@ export async function placeOrder() {
 
   if (!cartItems || cartItems.length === 0) redirect('/cart')
 
+  // Check stock before creating any orders
+  for (const item of cartItems) {
+    const product = item.product as { id: string; price: number; stock: number; vendor_id: string }
+    if (product.stock < item.quantity) redirect('/cart?error=insufficient_stock')
+  }
+
   // Group cart items by vendor
   const byVendor = new Map<string, typeof cartItems>()
   for (const item of cartItems) {
@@ -55,6 +61,15 @@ export async function placeOrder() {
     }))
 
     await supabase.from('order_items').insert(orderItems)
+
+    // Decrement stock atomically via DB function
+    for (const item of items) {
+      await supabase.rpc('decrement_product_stock', {
+        p_product_id: (item.product as { id: string }).id,
+        p_quantity: item.quantity,
+      })
+    }
+
     createdOrderIds.push(order.id)
   }
 
@@ -70,9 +85,29 @@ export async function placeOrder() {
   redirect('/orders')
 }
 
+const VALID_ORDER_STATUSES = ['pending', 'processing', 'shipped', 'delivered', 'cancelled']
+
 export async function updateOrderStatus(orderId: string, status: string) {
+  if (!VALID_ORDER_STATUSES.includes(status)) return
+
   const supabase = await createClient()
-  await supabase.from('orders').update({ status }).eq('id', orderId)
-  revalidatePath(`/dashboard/vendor/orders`)
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const { data: vendor } = await supabase
+    .from('vendors')
+    .select('id')
+    .eq('user_id', user.id)
+    .single()
+
+  if (!vendor) return
+
+  await supabase
+    .from('orders')
+    .update({ status })
+    .eq('id', orderId)
+    .eq('vendor_id', vendor.id)
+
+  revalidatePath('/dashboard/vendor/orders')
   revalidatePath(`/orders/${orderId}`)
 }
