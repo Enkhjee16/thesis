@@ -5,6 +5,25 @@ import { createClient } from '@/lib/supabase/server'
 
 export type AuthState = { error: string | null }
 
+function friendlyAuthError(message: string): string {
+  if (message.includes('already registered') || message.includes('already been registered')) {
+    return 'An account with this email already exists.'
+  }
+  if (message.includes('Database error')) {
+    return 'Registration failed due to a server error. Please try again later.'
+  }
+  if (message.includes('Invalid login credentials') || message.includes('invalid_credentials')) {
+    return 'Incorrect email or password.'
+  }
+  if (message.includes('Email not confirmed')) {
+    return 'Please confirm your email address before signing in.'
+  }
+  if (message.includes('Too many requests') || message.includes('rate limit')) {
+    return 'Too many attempts. Please wait a moment and try again.'
+  }
+  return message
+}
+
 export async function login(
   prevState: AuthState,
   formData: FormData
@@ -21,7 +40,7 @@ export async function login(
   const { error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
-    return { error: error.message }
+    return { error: friendlyAuthError(error.message) }
   }
 
   const { data: { user } } = await supabase.auth.getUser()
@@ -62,7 +81,7 @@ export async function register(
     options: { data: { full_name: fullName, role } },
   })
 
-  if (error) return { error: error.message }
+  if (error) return { error: friendlyAuthError(error.message) }
 
   // If email confirmation is enabled, session will be null
   if (!data.session) {
